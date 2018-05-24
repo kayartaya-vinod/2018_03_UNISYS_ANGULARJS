@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('myapp', []);
+
+        app.controller('mycontroller', function ($scope) {
+            $scope.x = 12345;
+        });
+
+        app.filter('reverse', reverseFilter);
+
+        function reverseFilter() {
+            return function (num) {
+                if(!num) return num;
+                var rev = 0;
+                while (num > 0) {
+                    rev = rev * 10 + num % 10;
+                    num = Math.trunc(num/10);
+                }
+                return rev;
+            };
+        }
+    </script>
+</head>
+
+<body ng-app="myapp" ng-controller="mycontroller">
+
+    <h3>x = {{ x }} </h3>
+
+    <h3>Reverse of {{ x }} is {{ x | reverse }} </h3>
+
+    <h3>Reverse of 8376464 is {{ 8376464 | reverse }} </h3>
+
+</body>
+
+</html>

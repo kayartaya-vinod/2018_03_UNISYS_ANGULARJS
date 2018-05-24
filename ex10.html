@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.controller('ctr1', function($scope) {
+            $scope.applyColor = function(){
+                // change the color of second div
+                $scope.$parent.bgcolor = $scope.bgcolor;
+            };
+        });
+
+        app.controller('ctr2', function($scope) {
+            $scope.$parent.bgcolor = 'yellow';
+        });
+    </script>
+</head>
+<body ng-app="app">
+    <div class="container">
+        <h1>Factory demo</h1>
+        <div class="row">
+            <div class="col-sm-6" ng-controller="ctr1">
+                <!-- input.form-control[ng-model=bgcolor][placeholder] -->
+                <input type="text" class="form-control" 
+                    ng-model="bgcolor" placeholder="Enter a color">
+                <button class="btn btn-primary"
+                    ng-click="applyColor()">Change background</button>
+            </div>
+            <div class="col-sm-6" ng-controller="ctr2"
+                style="background-color: {{$parent.bgcolor}}; min-height: 300px;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

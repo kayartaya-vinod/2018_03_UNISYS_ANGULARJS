@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+
+    <script>
+        var app = angular.module('myapp', []);
+        
+        app.controller('main', ['$scope', function($scope){
+
+            $scope.myname = 'vinod kumar k';
+            $scope.email = 'VINOD@VINOD.CO';
+
+            $scope.friend = { name: 'Shyam', city: 'Bangalore'};
+            $scope.today = new Date();
+
+            $scope.nums = [12, 48, 28, 449, 28, 1, 569, 44, 78];
+            $scope.amount = 1234.678901234;
+
+        }]);
+       
+    </script>
+</head>
+<body ng-controller="main">
+    <h1>AngularJS Demos</h1>
+    <hr>
+
+    <p>Name = {{ myname | uppercase }} </p>
+    <p>Email = <span ng-bind="email | lowercase"></span></p>
+    <p>Friend = {{ friend  }} </p>
+    <p>Today = {{ today | date: 'EEEE MMMM d, yyyy' | uppercase }}</p>
+    <p>Nums = {{ nums | limitTo: 5 }} </p>
+    <p>Amount = {{ amount | currency : 'Rs.' }} </p>
+</body>
+</html>

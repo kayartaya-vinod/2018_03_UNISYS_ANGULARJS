@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <h3 class="text-center alert alert-info">Contact Details</h3>
+        <div class="row">
+            <div class="col-sm-4 col-xs-12 text-center">
+                <img ng-src="{{contact.picture}}" class="img img-thumbnail img-responsive">
+                <hr class="hidden-sm hidden-md hidden-lg">
+            </div>
+            <div class="col-sm-8 col-xs-12">
+                <div class="row">
+                    <label class="col-xs-4 control-label">Name</label>
+                    <div class="col-xs-8">
+                        {{ contact | fullname }}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">D.O.B</label>
+                    <div class="col-xs-8">
+                        {{contact.dob}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">Age</label>
+                    <div class="col-xs-8">
+                        {{contact.dob | age : 3}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">Email</label>
+                    <div class="col-xs-8">
+                        {{contact.email}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">Phone</label>
+                    <div class="col-xs-8">
+                        {{contact.phone | phone }}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">Address</label>
+                    <div class="col-xs-8">
+                        {{contact.address}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">City</label>
+                    <div class="col-xs-8">
+                        {{contact.city}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">State</label>
+                    <div class="col-xs-8">
+                        {{contact.state}}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-xs-4 control-label">Country</label>
+                    <div class="col-xs-8">
+                        {{contact.country}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-8 col-xs-offset-4">
+                        <a href="/#!/edit/{{contact.id}}" class="btn btn-primary">
+                            <span>Edit</span>
+                        </a>
+                        <button class="btn btn-danger">
+                            <span>Delete</span>
+                        </button>
+                        <a href="/#!/all" class="btn btn-default">View all</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

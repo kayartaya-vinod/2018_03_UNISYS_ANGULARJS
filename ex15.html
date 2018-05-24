@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" 
+        href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+        app.controller('main', function($scope){
+        });
+
+        app.directive('vkTable', ['$http', function($http){
+            var d = {};
+            d.templateUrl = './vk-table.html';
+            d.scope = {};
+            d.link = function(scope, elem, attr) {
+                scope.cssClass = attr.cssClass;
+
+                $http.get(attr.url)
+                .then(resp => scope.data = resp.data);
+            };
+
+            return d;
+        }]);
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="main">
+    <div class="container">
+        <h1>Directive Example</h1>
+
+        <div vk-table url="https://vinod.co/randomdata/contacts"
+            css-class="table table-striped table-bordered table-condensed"></div>
+
+        
+    </div>
+</body>
+</html>
+

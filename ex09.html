@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+        th {
+            cursor: pointer;
+        }
+        th:first-child {
+            cursor: default;
+        }
+    </style>
+
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        angular.module('myapp', [])
+        .controller('main', function($scope, $http) {
+           
+            $http.get('https://vinod.co/randomdata/contacts/')
+            .then(resp => $scope.contacts=resp.data);
+
+            $scope.offset = 0;
+            $scope.isLastPage = false;
+            $scope.navigateTo = function(where) {
+                switch(where) {
+                    case 'first': 
+                        $scope.offset = 0; 
+                        $scope.isLastPage = false;
+                        break;
+                    case 'prev': 
+                        $scope.offset -= 10; 
+                        if($scope.offset<0) $scope.offset = 0;
+                        $scope.isLastPage = false;
+                        break;
+                    case 'next':
+                        $scope.offset += 10;
+                        var lastPageOffset = Math.trunc($scope.contacts.length/10) * 10;
+                        if($scope.offset ==  lastPageOffset){
+                            $scope.isLastPage = true;
+                        }
+                        break;
+                    case 'last':
+                        $scope.isLastPage = true;
+                        $scope.offset = Math.trunc($scope.contacts.length/10) * 10;
+                }
+                $scope.pageNo = 1+Math.trunc($scope.offset/10);
+            }
+
+            $scope.pageNo = 1;
+        });
+
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="main">
+    <div class="container">
+        <h3>List of all contacts in the phonebook</h3>
+        <div>
+            <button ng-disabled="offset==0"
+                ng-click="navigateTo('first')" class="btn btn-primary">First</button>
+            <button ng-disabled="offset==0"
+                ng-click="navigateTo('prev')" class="btn btn-primary">Previous</button>
+            <button ng-disabled="isLastPage"
+                ng-click="navigateTo('next')" class="btn btn-primary">Next</button>
+            <button ng-disabled="isLastPage"
+                ng-click="navigateTo('last')" class="btn btn-primary">Last</button>
+            
+            Page: {{pageNo}}
+        </div>
+        <hr>
+        <table class="table table-striped table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Slno</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="c in (contacts | limitTo: 10: offset) ">
+                    <td>{{$index+1}}</td>
+                    <td>{{c.first_name}}</td>
+                    <td>{{c.last_name}}</td>
+                    <td>{{c.email}}</td>
+                    <td>{{c.phone}}</td>
+                    <td>{{c.city}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+</body>
+</html>

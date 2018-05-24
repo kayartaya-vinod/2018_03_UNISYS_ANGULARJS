@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" 
+        href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.controller('main', function($scope){
+            $scope.message = 'Hello AngularJS!';
+        });
+        app.controller('sub', function($scope){
+            $scope.message = 'Hello Unisys!';
+        });
+        app.directive('helloWorld', function(){
+            var cfg = {};
+            cfg.restrict = 'EAC';
+            cfg.template = '<h1>{{message}}</h1>';
+            return cfg;
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="main">
+    <div class="container">
+        <h1>AngularJS Directives</h1>
+        <div hello-world></div>
+
+        <div ng-controller="sub">
+            <div hello-world></div>
+        </div>
+    </div>
+</body>
+</html>

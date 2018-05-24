@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.factory('colorFactory', function(){
+            return {
+                bgcolor: 'lime'
+            };
+        });
+        app.controller('ctr1', function($scope, colorFactory) {
+            $scope.applyColor = function(){
+                colorFactory.bgcolor = $scope.bgcolor;
+            };
+        });
+        app.controller('ctr2', function($scope, colorFactory) {
+            $scope.colorFactory = colorFactory;
+        });
+
+        function getCurrentTime() {
+            var dt = new Date();
+            var h = dt.getHours(), 
+                m = dt.getMinutes(),
+                s = dt.getSeconds();
+            return `${h}:${m}:${s}`;
+        }
+
+        app.controller('main', function($scope, $interval) {
+            $scope.currentTime = getCurrentTime();
+            $interval(function(){
+                var time = getCurrentTime();
+                $scope.currentTime = time;
+            }, 1000);
+
+            // window.setInterval(function(){
+            //     var time = getCurrentTime();
+            //     $scope.currentTime = time;
+            //     $scope.$apply();
+            // }, 1000);
+        });
+        // style="background-color: {{colorFactory.bgcolor}}; min-height: 300px;">
+    </script>
+</head>
+<body ng-app="app" ng-controller="main">
+    <div class="container">
+        <h1>Factory demo <span class="pull-right">Time: {{currentTime}}</span></h1>
+        <div class="row">
+            <div class="col-sm-6" ng-controller="ctr1">
+                <!-- input.form-control[ng-model=bgcolor][placeholder] -->
+                <input type="text" class="form-control" 
+                    ng-model="bgcolor" placeholder="Enter a color">
+                <button class="btn btn-primary"
+                    ng-click="applyColor()">Change background</button>
+            </div>
+            <div class="col-sm-6" ng-controller="ctr2"
+                style="background-color: {{colorFactory.bgcolor}}; min-height: 300px;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

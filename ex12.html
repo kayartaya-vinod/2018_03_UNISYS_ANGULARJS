@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" 
+        href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+
+        app.controller('main', function($scope){
+        });
+
+        // the name of the directive being registered should be
+        // in camelCaps, but while using in HTML, must be hyphenated
+        // <div hello-world></div>
+        app.directive('helloWorld', function(){
+            // this method is called once, lazily, when the first
+            // usage in HTML is encountered
+
+            // this method must return a config object
+            var cfg = {};
+            cfg.restrict = 'EAC';
+            // <hello-world></hello-world>
+            // <div hello-world></div>
+            // <div class="hello-world"></div>
+            cfg.template = '<h1>Hello, World!</h1>';
+            return cfg;
+        });
+
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="main">
+    <div class="container">
+        <h1>AngularJS Directives</h1>
+        <hello-world>hello-world used as tag</hello-world>
+        <div hello-world>hello-world used as an attribute</div>
+        <div class="hello-world">hello-world used as a css classname</div>
+    </div>
+</body>
+</html>

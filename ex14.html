@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" 
+        href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('app', []);
+        app.controller('main', function($scope){
+            $scope.names = ['Vinod', 'John', 'Jane'];
+            $scope.cities = ['Bangalore', 'Mysore', 'Mangalore', 'Tumkur'];
+        });
+
+        app.directive('vkList', function(){
+            var d = {};
+            
+            d.scope = {
+                values: '=src'
+            };
+            d.template = `<ul class="list-group col-sm-4">
+                    <li class="list-group-item" ng-repeat="v in values">
+                        {{ v }}
+                    </li>
+                </ul>`;
+            return d;
+        });
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="main">
+    <div class="container">
+        <h1>Directives</h1>
+        <h3>Names:</h3>
+        <div vk-list src="names"></div>
+        <hr>
+        <h3>Cities:</h3>
+        <div vk-list src="cities"></div>
+        <h3>Colors:</h3>
+        <div vk-list src="['Red', 'Blue', 'Yellow', 'Green', 'Pink']"></div>
+    </div>
+</body>
+</html>

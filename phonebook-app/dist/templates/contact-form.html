@@ -1,0 +1,127 @@
+<style>
+    .error {
+        color: red;
+        font-style: italic;
+        font-size: .8em;
+    }
+</style>
+<div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h3 class="text-center alert alert-info">Contact Details</h3>
+            <div class="row">
+                <div class="col-sm-4 col-xs-12 text-center">
+                    <img ng-src="{{contact.picture}}" class="img img-thumbnail img-responsive">
+                    <hr class="hidden-sm hidden-md hidden-lg">
+                </div>
+                <div class="col-sm-8 col-xs-12">
+                    <form class="form-horizontal" name="f1">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Firstname</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.first_name" 
+                                    class="form-control" 
+                                    name="first_name" 
+                                    required 
+                                    ng-minlength="3"
+                                    ng-maxlength="15">
+
+                                <div class="error" ng-if="f1.first_name.$dirty 
+                                && f1.first_name.$invalid">
+                                    <div ng-if="f1.first_name.$error.required">Firstname is required</div>
+                                    <div ng-if="f1.first_name.$error.minlength">At least 3 letters required for firstname</div>
+                                    <div ng-if="f1.first_name.$error.maxlength">First name cannot exceed 15 letters</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Lastname</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.last_name" class="form-control"
+                                    name="last_name" ng-maxlength="15" required>
+
+                                <div class="error" ng-if="f1.last_name.$dirty 
+                                && f1.last_name.$invalid">
+                                    <div ng-if="f1.last_name.$error.required">Last name is required</div>
+                                    <div ng-if="f1.last_name.$error.maxlength">Last name cannot exceed 15 letters</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Gender</label>
+                            <div class="col-xs-8">
+                                <label><input type="radio" ng-model="contact.gender" value="Male"> Male</label>
+                                <label><input type="radio" ng-model="contact.gender" value="Female"> Female</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">D.O.B.</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.dob" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email</label>
+                            <div class="col-xs-8">
+                                <input type="email" ng-model="contact.email" class="form-control" 
+                                    name="email" required>
+                                <div class="error" ng-if="f1.email.$dirty && f1.email.$invalid">
+                                    <div ng-if="f1.email.$error.required">Email is required</div>
+                                    <div ng-if="f1.email.$error.email">Must be a valid email address</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Phone</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.phone" class="form-control" 
+                                    name="phone" required pattern="[1-9][0-9]{9}">
+                                <div class="error" ng-if="f1.phone.$dirty && f1.phone.$invalid">
+                                    <div ng-if="f1.phone.$error.required">Phone is required</div>
+                                    <div ng-if="f1.phone.$error.pattern">Must be a 10 digit number</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Address</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.address" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">City</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.city" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">State</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.state" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Country</label>
+                            <div class="col-xs-8">
+                                <input ng-model="contact.country" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-4">
+                            <button ng-click="save()" 
+                                ng-disabled="f1.$invalid"
+                                class="btn btn-primary">
+                                Save
+                            </button>
+                            <button id="btnCancel" ng-click="cancel()" class="btn btn-default">
+                                Cancel
+                            </button>
+                            <a href="/#!/all" class="btn btn-default">View all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        var app = angular.module('myapp', []);
+
+        app.controller('main', ['$scope', '$http', function($scope, $http){
+            $scope.search = function(){
+                // $scope.movie = undefined;
+                delete $scope.movie;
+
+                var url = 'http://www.omdbapi.com/';
+                var options = {
+                    params: {
+                        apikey: 'b84c1bb',
+                        t: $scope.movieTitle
+                    }
+                };
+
+                $http.get(url, options)
+                .then(function(resp) { 
+                    if(resp.data.Response=='False') {
+                        alert('Movie not found!');
+                        return;
+                    }
+                    $scope.movie = resp.data;
+                })
+                .catch(function(resp) { 
+                    console.error(resp);
+                });
+
+            };
+        }]);
+
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body ng-controller="main">
+    <div class="container">
+        <h3 class="alert alert-info">AngularJS Demo</h3>
+
+        <div class="row">
+            <form onsubmit="return false">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" 
+                        ng-model="movieTitle"
+                        placeholder="enter movie title">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-block btn-primary"
+                        ng-click="search()">Search..</button>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+        
+        <div class="row" ng-if="movie">
+            <div class="col-sm-4">
+                <img class="img img-thumbnail" ng-src="{{movie.Poster}}" alt="">
+            </div>
+            <div class="col-sm-6">
+                <h3>{{movie.Title}}</h3>
+                <div class="row">
+                    <div class="col-sm-3">Plot</div>
+                    <div class="col-sm-9">{{movie.Plot}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Genre</div>
+                    <div class="col-sm-9">{{movie.Genre}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Year</div>
+                    <div class="col-sm-9">{{movie.Year}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Actors</div>
+                    <div class="col-sm-9">{{movie.Actors}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">IMDB Rating</div>
+                    <div class="col-sm-9">{{movie.imdbRating}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Awards</div>
+                    <div class="col-sm-9">{{movie.Awards}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="phonebook" ng-controller="mainController">
+
+<head>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="./scripts/all.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title ng-bind="title"></title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">{{title}}</a>
+            </div>
+
+            <a href="/#!/add" class="btn btn-primary navbar-btn">
+                New contact
+            </a>
+        </div>
+
+        <div style="margin: 60px 0" ng-view></div>
+
+        <div class="navbar navbar-default navbar-fixed-bottom">
+            <div class="text-center" style="padding-top: 10px;">
+                {{copyright}}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

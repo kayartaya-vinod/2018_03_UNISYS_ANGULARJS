@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="form-group">
+            <input type="search" class="form-control" 
+                placeholder="search..." ng-model="keyword">
+        </div>
+        <div class="list-group">
+            <div class="list-group-item row" 
+                ng-repeat="c in contacts | filter: keyword">
+                <div class="col-xs-4">
+                    <img ng-src="{{c.picture}}" class="img img-responsive img-circle">
+                </div>
+                <div class="col-xs-8">
+                    <p class="lead">
+                        <a href="/#!/view/{{c.id}}">
+                            {{c | fullname }}
+                        </a>
+                    </p>
+                    <div>{{c.email}}</div>
+                    <div>{{c.phone | phone}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

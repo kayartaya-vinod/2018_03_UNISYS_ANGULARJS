@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+
+    <script>
+        var app = angular.module('myapp', []);
+        
+        // The second parameter to the controller function can be:
+        // 1. a function representing the controller
+        // 2. an array of few strings, followed by a function
+        app.controller('main', ['$scope', function($scope){
+
+            $scope.names = ['Vinod', 'Shyam', 'Kiran', 'Vinod', 'Shyam', 'Krishna', 'Satish'];
+
+            $scope.addName = function(){
+                $scope.names.push($scope.newName);
+                $scope.newName = undefined;
+            };
+            
+            $scope.deleteName = function(idx) {
+                $scope.names.splice(idx, 1);
+            };
+        }]);
+       
+    </script>
+</head>
+<body ng-controller="main">
+    <h1>AngularJS Demos</h1>
+    <hr>
+
+    <div>
+        <input type="text" ng-model="newName" placeholder="Enter a name">
+        <button ng-disabled="!newName" ng-click="addName()">Add name</button>
+    </div>
+
+    <ul>
+        <!-- ng-repeat creates a new scope for the current element,
+        which <li> and stores the 'name' in the same -->
+        <li ng-repeat="name in names track by $index" >
+            <span ng-bind="name"></span>
+            <a href="" ng-click="deleteName($index)">&times;</a>
+        </li>
+    </ul>
+
+</body>
+</html>

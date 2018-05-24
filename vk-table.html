@@ -1,0 +1,12 @@
+<table class="{{cssClass}}">
+    <thead>
+        <tr>
+            <th ng-repeat="(key, value) in data[0]">{{key | uppercase}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="d in data">
+            <td ng-repeat="(key, value) in d">{{value}}</td>
+        </tr>
+    </tbody>
+</table>

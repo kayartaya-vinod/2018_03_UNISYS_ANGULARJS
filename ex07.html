@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+        th {
+            cursor: pointer;
+        }
+        th:first-child {
+            cursor: default;
+        }
+    </style>
+
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+
+    <script>
+        angular.module('myapp', [])
+        .controller('main', function($scope, $http) {
+            var url = 'https://vinod.co/randomdata/contacts/';
+            $http.get(url)
+            .then(resp => $scope.contacts=resp.data);
+
+            $scope.sortByField = 'first_name';
+        });
+
+    </script>
+</head>
+<body ng-app="myapp" ng-controller="main">
+    <div class="container">
+        <h3>List of all contacts in the phonebook</h3>
+
+        <table class="table table-striped table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Slno</th>
+                    <th ng-click="sortByField='first_name'">Firstname</th>
+                    <th ng-click="sortByField='last_name'">Lastname</th>
+                    <th ng-click="sortByField='email'">Email</th>
+                    <th ng-click="sortByField='phone'">Phone</th>
+                    <th ng-click="sortByField='city'">City</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="c in (contacts | orderBy: sortByField) ">
+                    <td>{{$index+1}}</td>
+                    <td>{{c.first_name}}</td>
+                    <td>{{c.last_name}}</td>
+                    <td>{{c.email}}</td>
+                    <td>{{c.phone}}</td>
+                    <td>{{c.city}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+</body>
+</html>
